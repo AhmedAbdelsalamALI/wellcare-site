@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WellCare - حجز موعد</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/welcare.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/style4.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="WELLCARE/favicon_w_blue.ico">
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 700px;
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .form-control {
+            border-radius: 0.25rem;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        #imagePreview img {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container mt-5">
+        <h2 class="mb-4">حجز موعد</h2>
+        <form id="appointmentForm" enctype="multipart/form-data" class="border p-4 rounded shadow-sm">
+            <div class="mb-3">
+                <label for="patientName" class="form-label">اسم المريض:</label>
+                <input type="text" id="patientName" class="form-control" placeholder="أدخل اسم المريض" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="patientId" class="form-label">الرقم القومي للمريض:</label>
+                <input type="text" id="patientId" class="form-control" placeholder="أدخل الرقم القومي" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="department" class="form-label">اختر القسم:</label>
+                <select id="department" class="form-select" onchange="updateDoctors()" required>
+                    <option value="">اختر قسم</option>
+                    <option value="القلب">طب القلب</option>
+                    <option value="الأعصاب">طب الأعصاب</option>
+                    <option value="العظام">جراحة العظام</option>
+                    <option value="الجلدية">طب الجلدية</option>
+                    <option value="العيون">طب العيون</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="doctor" class="form-label">اختر الطبيب:</label>
+                <select id="doctor" class="form-select" required>
+                    <option value="">اختر طبيباً</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="appointmentDate" class="form-label">تاريخ الموعد:</label>
+                <input type="date" id="appointmentDate" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="appointmentTime" class="form-label">وقت الموعد:</label>
+                <input type="time" id="appointmentTime" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">رقم الهاتف (+20):</label>
+                <input type="text" id="phone" class="form-control" placeholder="أدخل رقم الهاتف" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="images" class="form-label">رفع الصور الطبية:</label>
+                <input type="file" id="images" class="form-control" accept="image/*" multiple>
+                <div id="imagePreview" class="d-flex flex-wrap mt-3"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block">حجز الموعد</button>
+        </form>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const imageInput = document.getElementById('images');
+        const imagePreview = document.getElementById('imagePreview');
+
+        imageInput.addEventListener('change', function () {
+            imagePreview.innerHTML = '';
+            const files = Array.from(imageInput.files);
+
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = file.name;
+                    imagePreview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        document.getElementById('appointmentForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData();
+            const patientName = document.getElementById('patientName').value;
+            const patientId = document.getElementById('patientId').value;
+            const phone = document.getElementById('phone').value;
+            const doctor = document.getElementById('doctor').value;
+            const date = document.getElementById('appointmentDate').value;
+            const time = document.getElementById('appointmentTime').value;
+
+            formData.append('patientName', patientName);
+            formData.append('patientId', patientId);
+            formData.append('phone', phone);
+            formData.append('doctor', doctor);
+            formData.append('date', date);
+            formData.append('time', time);
+
+            const files = Array.from(imageInput.files);
+            files.forEach((file, index) => {
+                formData.append('images[${index}]',file);
+            });
+
+            fetch('/submit-appointment', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire('تم بنجاح', 'تم حجز الموعد بنجاح!', 'success');
+                    document.getElementById('appointmentForm').reset();
+                    imagePreview.innerHTML = '';
+                } else {
+                    Swal.fire('خطأ', 'حدث خطأ أثناء الحجز.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire('خطأ', 'حدث خطأ أثناء الحجز.', 'error');
+            });
+        });
+
+        // قائمة الأطباء حسب القسم
+        const doctorsByDepartment = {
+            "القلب": [
+                { id: 1, name: "د. أحمد محمد" },
+                { id: 2, name: "د. سارة علي" }
+            ],
+            "الأعصاب": [
+                { id: 3, name: "د. مصطفى جابر" },
+                { id: 4, name: "د. عادل سامي" }
+            ],
+            "العظام": [
+                { id: 5, name: "د. خالد علي" },
+                { id: 6, name: "د. فاطمة حسين" }
+            ],
+            "الجلدية": [
+                { id: 7, name: "د. علي سمير" },
+                { id: 8, name: "د. نورا محمد" }
+            ],
+            "العيون": [
+                { id: 9, name: "د. سامر عادل" },
+                { id: 10, name: "د. ليلى حسن" }
+            ]
+        };
+
+        // تحديث قائمة الأطباء بناءً على القسم المختار
+        function updateDoctors() {
+            const department = document.getElementById("department").value;
+            const doctorSelect = document.getElementById("doctor");
+
+            // إزالة الأطباء الحاليين
+            doctorSelect.innerHTML = "<option value=''>اختر طبيباً</option>";
+
+            // إضافة الأطباء حسب القسم
+            if (doctorsByDepartment[department]) {
+                doctorsByDepartment[department].forEach((doctor) => {
+                    const option = document.createElement("option");
+                    option.value = doctor.id;
+                    option.textContent = doctor.name;
+                    doctorSelect.appendChild(option);
+                });
+            }
+        }
+
+        // إضافة وظيفة لتقديم النموذج (عرض رسالة نجاح مؤقتة)
+        $("#appointmentForm").submit(function(event) {
+            event.preventDefault();
+            Swal.fire('تم حجز الموعد بنجاح!', 'ستتم مراسلتك قريباً لتأكيد الموعد.', 'success');
+            // يمكنك هنا إضافة كود الإرسال الفعلي للبيانات إلى الخادم
+        });
+    </script>
+
+</body>
+</html>
