@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WellCare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/all.min.css"> <!-- أيقونات Font Awesome -->
+    <link rel="stylesheet" href="css/vedstyle.css"> <!-- ملف CSS مخصص لصفحة الفيديوهات -->
+</head>
+<body>
+
+    <!-- شريط التنقل -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">WellCare</a>
+            <ul class="main-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="video.html" class="active">Videos</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <!-- قسم الفيديوهات -->
+    <section class="videos-section">
+        <h2 class="main-title">فيديوهات طبية</h2>
+        <p class="section-description">شاهد أحدث الفيديوهات الطبية والنصائح الصحية.</p>
+        
+        <div class="videos-grid">
+            <div class="video-card1 video-card">
+                <img src="img/hear.png" alt="فيديو طبي 1" class="video-thumbnail">
+                <div class="overlay">
+                    <h3>السمع</h3>
+                    <p>كيف نسمع</p>
+                    <span class="play-button"><i class="fa-solid fa-play"></i> مشاهدة</span>
+                </div>
+            </div>
+         
+            <div class="video-card2  video-card ">
+                <img src="img/video-thumbnail2.jpg"  class="video-thumbnail">
+                <div class="overlay">
+                    <h3>عنوان الفيديو الطبي </h3>
+                    <p>وصف مختصر لمحتوى الفيديو.</p>
+                    <span class="play-button"><i class="fa-solid fa-play"></i> مشاهدة</span>
+                </div>
+            </div>
+
+            <div class="video-card3  video-card ">
+                <img src="img/video-thumbnail2.jpg"  class="video-thumbnail">
+                <div class="overlay">
+                    <h3>عنوان الفيديو الطبي </h3>
+                    <p>وصف مختصر لمحتوى الفيديو.</p>
+                    <span class="play-button"><i class="fa-solid fa-play"></i> مشاهدة</span>
+                </div>
+            </div>
+
+            <div class="video-card4  video-card ">
+                <img src="img/video-thumbnail2.jpg"  class="video-thumbnail">
+                <div class="overlay">
+                    <h3>عنوان الفيديو الطبي </h3>
+                    <p>وصف مختصر لمحتوى الفيديو.</p>
+                    <span class="play-button"><i class="fa-solid fa-play"></i> مشاهدة</span>
+                </div>
+            </div>
+
+            <div class="video-card5  video-card ">
+                <img src="img/video-thumbnail2.jpg"  class="video-thumbnail">
+                <div class="overlay">
+                    <h3>عنوان الفيديو الطبي </h3>
+                    <p>وصف مختصر لمحتوى الفيديو.</p>
+                    <span class="play-button"><i class="fa-solid fa-play"></i> مشاهدة</span>
+                </div>
+            </div>
+
+            <div class="video-card6  video-card ">
+                <img src="img/video-thumbnail2.jpg"  class="video-thumbnail">
+                <div class="overlay">
+                    <h3>عنوان الفيديو الطبي </h3>
+                    <p>وصف مختصر لمحتوى الفيديو.</p>
+                    <span class="play-button"><i class="fa-solid fa-play"></i> مشاهدة</span>
+                </div>
+            </div>
+
+            <!-- أضف باقي الفيديوهات هنا بنفس الطريقة -->
+            
+        </div>
+    </section>
+
+
+    <!-- نافذة الفيديو (Modal) -->
+    <div id="videoModal" class="modal">
+        <span class="close-btn">&times;</span>
+        <video id="modal-video" class="modal-video" controls width="800" height="450">
+            <source id="video-source" src="" type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو.
+        </video>
+    </div>
+
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="container">
+            <p>حقوق الطبع والنشر © 2024 WellCare. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+    
+    <!-- إضافة JavaScript -->
+    <script src="video.js"></script> <!-- ملف JavaScript مخصص لصفحة الفيديوهات -->
+</body>
+</html>
