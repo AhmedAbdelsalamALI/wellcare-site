@@ -945,7 +945,7 @@
       }
     } catch (err) {
       console.error(err);
-      alert("❌ حدث خطأ في الاتصال بالسيرفر");
+      alert("❌ حدث خطأ في الاتصال بالسيرفر: " + err.message);
     }
   });
 </script>
@@ -975,7 +975,7 @@
       }
     } catch (err) {
       console.error(err);
-      alert("❌ مشكلة في الاتصال بالسيرفر");
+      alert("❌ حدث خطأ في الاتصال بالسيرفر: " + err.message);
     }
   });
 </script>
