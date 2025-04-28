@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>بياناتي الشخصية</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="dashboard">
+
+  <aside class="sidebar">
+    <h2>WellCare</h2>
+    <ul>
+      <li><a href="wellcare user.html">لوحة التحكم</a></li>
+      <li><a href="activity-log.html">سجل الأنشطة</a></li>
+      <li><a href="health-stats.html">الإحصائيات الصحية</a></li>
+      <li><a href="support.html">الدعم الفني</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <header>
+      <h1>بياناتي الشخصية</h1>
+    </header>
+
+    <form id="profileForm" class="profile-form">
+      <label>البريد الإلكتروني:</label>
+      <input type="email" id="email" readonly>
+
+      <label>رقم الهاتف:</label>
+      <input type="text" id="phone">
+
+      <label>تاريخ الميلاد:</label>
+      <input type="date" id="birthdate">
+
+      <label>الرقم القومي:</label>
+      <input type="text" id="national_id">
+
+      <label>فصيلة الدم:</label>
+      <input type="text" id="blood_type">
+
+      <label>الوظيفة:</label>
+      <input type="text" id="job">
+
+      <label>الحالة الاجتماعية:</label>
+      <select id="marital_status">
+        <option value="أعزب">أعزب</option>
+        <option value="متزوج">متزوج</option>
+      </select>
+
+      <label>المدينة:</label>
+      <input type="text" id="city">
+
+      <label>العنوان:</label>
+      <input type="text" id="address">
+
+      <label>الجنس:</label>
+      <select id="gender">
+        <option value="ذكر">ذكر</option>
+        <option value="أنثى">أنثى</option>
+      </select>
+
+      <button type="submit" class="save-btn">حفظ التعديلات</button>
+    </form>
+  </main>
+
+  <script src="js/scripts.js"></script>
+
+</body>
+</html>

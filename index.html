@@ -924,61 +924,76 @@
 
 
 
-<script>
-  // تسجيل مستخدم جديد
-  document.getElementById("registerForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
-
-    const formData = new FormData(this);
-
-    try {
-      const res = await fetch("https://wellcare.fwh.is/register.php", {
-        method: "POST",
-        body: formData
-      });
-
-      const data = await res.json();
-      if (data.status === "success") {
-        alert("🎉 تم التسجيل بنجاح!");
-      } else {
-        alert("❌ " + data.message);
-      }
-    } catch (err) {
-      console.error(err);
-      alert("❌ حدث خطأ في الاتصال بالسيرفر: " + err.message);
-    }
-  });
-</script>
-
-
-
-<script>
-  // تسجيل دخول مستخدم
+  // تسجيل دخول مستخدم بعد التأكد
+  <script>
   document.getElementById("loginForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
+  e.preventDefault(); // يمنع Reload
 
-    const formData = new FormData(this);
+  const formData = new FormData(this);
 
-    try {
-      const res = await fetch("https://wellcare.fwh.is/login.php", {
-        method: "POST",
-        body: formData
-      });
+  try {
+    const response = await fetch("http://localhost/wellcare-backend/login.php", {
+      method: "POST",
+      body: formData
+    });
 
-      const data = await res.json();
-      if (data.status === "success") {
-        alert("🎉 أهلاً بيك " + data.name);
-        localStorage.setItem("user_id", data.user_id);
-        // ممكن توجهه لصفحة dashboard مثلاً
-      } else {
-        alert("❌ " + data.message);
-      }
-    } catch (err) {
-      console.error(err);
-      alert("❌ حدث خطأ في الاتصال بالسيرفر: " + err.message);
+    const data = await response.json();
+
+    if (data.status === "success") {
+      // ✅ بيانات صحيحة
+      alert("✅ تم تسجيل الدخول بنجاح!");
+
+      // حفظ بيانات المستخدم محليًا
+      localStorage.setItem("user_id", data.user_id);
+      localStorage.setItem("user_name", data.name);
+
+      // تحويل إلى صفحة WellCare User
+      window.location.href = "wellcare user.html";
+    } else {
+      // ❌ بيانات خاطئة
+      alert("❌ الإيميل أو كلمة السر خطأ. حاول مرة تانية.");
     }
-  });
+  } catch (error) {
+    console.error("❌ خطأ في الاتصال بالسيرفر:", error);
+    alert("❌ حدث خطأ أثناء الاتصال بالسيرفر." + error.message);
+  }
+});
+
+
 </script>
+
+
+// تسجيل مستخدم جديد
+
+<script>
+  document.getElementById("registerForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const formData = new FormData(this);
+
+  try {
+    const response = await fetch("http://localhost/wellcare-backend/register.php", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+    
+    if (data.status === "success") {
+      alert("🎉 تم التسجيل بنجاح! يمكنك تسجيل الدخول الآن.");
+    } else {
+      alert("❌ " + data.message);
+    }
+  } catch (error) {
+    console.error("خطأ في الاتصال بالسيرفر:", error);
+    alert("❌ حدث خطأ في الاتصال بالسيرفر." + error.message);
+  }
+});
+
+</script>
+
+
+
 
 </body>
 </html>
